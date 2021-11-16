@@ -1,0 +1,85 @@
+# Go Data Structure Validation done right
+
+11 Nov 2021
+Tags: development, security, validation
+Summary: User input validation in golang
+
+Johannes Kolata
+Backend Developer, Clarilab
+johannes.kolata@ClariLab.de
+https://wr4thon.de
+@Wr4thon
+
+## What is input validation?
+
+- The process of validating user input into an application
+
+## frontend or backend?
+
+.html html/backend_or_frontend/index.html
+
+## Why input validation?
+
+- Make sure that inputs are sane
+- Input is potentially malevolent
+- Prevent invalid data from being stored
+- Never trust user input
+
+## How does it work in go?
+
+- can be done by hand
+- can be done with a framework
+
+## By Hand
+
+**pros:**
+
+- immediately visible
+
+**cons:**
+
+- bad reusability
+- clutters the method
+- bad style
+
+## Example
+
+.play -edit examples/hand/main.go /^func main/,/^}/
+
+## With a Framework
+
+**pros:**
+
+- clean methods
+- rule based
+
+**cons:**
+
+- additional dependency
+- potentially hidden from the programmer
+
+## Example
+
+**import**
+
+```go
+import "github.com/go-playground/validator/v10"
+```
+
+**code**
+
+.play -edit examples/framework/main.go /START OMIT/,/END OMIT/
+
+## Example Extended
+
+.play -edit examples/framework_extended/main.go /START OMIT/,/END OMIT/
+.play -edit examples/framework_extended/validator.go /START OMIT/,/END OMIT/
+
+## live demo
+
+## Links
+
+- [server-side-validation-with-api-descriptions (article, apisyouwonthate)](https://apisyouwonthate.com/blog/server-side-validation-with-api-descriptions/)
+- [Validating Data Structures And Variables In Golang (video, youtube)](https://www.youtube.com/watch?v=dZFmpu2NIMY)
+- [sanity check (article, stackexchange)](https://softwareengineering.stackexchange.com/questions/92124)
+- [go-playground/validator (framework, github)](https://github.com/go-playground/validator)
