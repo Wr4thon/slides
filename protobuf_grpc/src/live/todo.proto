@@ -1,0 +1,26 @@
+syntax = "proto3";
+
+package todo;
+option go_package = "./pkg/services/todo";
+
+message ID {
+  int64 ID = 1;
+}
+
+message Item {
+  ID ID = 1;
+  string Text =2;
+  bool Done = 3;
+}
+
+message Items {
+  repeated Item Element = 1;
+}
+
+message Void {}
+
+service Todo{
+  rpc Add (Item) returns (ID);
+  rpc Complete (ID) returns (Void);
+  rpc List (Void) returns (Items);
+}

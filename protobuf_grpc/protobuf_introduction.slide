@@ -1,0 +1,78 @@
+Introduction to gRPC
+2021-05-20
+
+Johannes Kolata
+@wr4thon
+me@wr4thon.de
+
+* Agenda
+
+- What is (g)RPC
+- What are protocol buffers
+- .proto files and their syntax
+- Live Coding
+- Pros & Cons
+- Q&A
+
+
+* What is (g)RPC
+
+- remote procedure call
+- execute a procedure in another process
+- usually synchronously
+
+gRPC
+
+- open source RPC framework
+- uses protocol buffers
+
+* What are protocol buffers
+
+- language and platform-neutral mechanism for serializing data
+- description language for structured data
+- like JSON and co. just less
+- generates code
+
+* .proto files and their syntax
+
+  syntax = "proto3";
+  package demo;
+  option go_package = "<path>/<to>/<package>";
+
+  // messages describe what the data looks like
+  message Target { 
+    string Name = 1;
+  }
+
+  message HelloReply {
+    string message = 1;
+  }
+
+  // definition of a contract
+  service Greeter { 
+    rpc Greet (Target) returns (HelloReply)
+  }
+
+generating the code:
+
+  $ protoc --go_out=. --go-grpc_out=. ./demo.proto
+
+* Live Coding
+
+> goto vscode
+
+* Pros & Cons
+
+Pros:
+
+- Small footprint
+- fast implementation
+- fast execution
+- contract between client and server
+
+Cons: 
+
+- No support for primitive messages
+- another dependency in your code / technology in your stack
+
+* Q&A
