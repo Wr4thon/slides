@@ -21,4 +21,4 @@ COPY . .
 RUN go get -u golang.org/x/tools/cmd/present  
 RUN go install golang.org/x/tools/cmd/present@latest
 
-ENTRYPOINT [ "present", "--http=0.0.0.0:3999", "-play", "-use_playground", "${PROJECT_PATH}" ]
+ENTRYPOINT [ "present", "--http=0.0.0.0:80", "-play", "-use_playground", "-notes", "${PROJECT_PATH}" ]
