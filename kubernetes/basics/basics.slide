@@ -10,49 +10,134 @@ https://slides.wr4thon.de
 @wr4thon
 
 ## Agenda
-___
 
-- Kubernetes Quickfacts
-  - A containerized mindset
-  - Software supply chain
-- Concepts
-- Why are we using Kubernetes
+- Kubernetes quickfacts
+- Terminology
+- A containerized mindset
+- Software supply chain
 - How are we using Kubernetes
 - Networking with Kubernetes
 - Helpful tools for working with Kubernetes
 
 - Security (daily business) 
 // https://kubernetes.io/docs/concepts/security/
-- Demo?
-- K3S
 
-## Kubernetes Quickfacts
-___
+## Kubernetes quickfacts
 
-- open-source platform for administrating, automating and scaling container applications
-- developed by Google in go
-- initial release 2014
+- Open-source platform for administrating, automating and scaling container applications
+- Developed by Google in go
+- Initial release 2014
+- Development continued by Cloud Native Computing Foundation
+- Manages containers (docker, containerd, ... )
  
-
 : original codename for Kubernetes within Google was Project 7
 : reference to the Star Trek ex-Borg character Seven of Nine
 : The seven spokes on the wheel of the Kubernetes logo are a reference to that codename.
-
-### What is it used for {#anchor}
-
-
-### A containerized mindset {#anchor}
-
-## Concepts
-
-___
-
-// https://kubernetes.io/docs/concepts/overview/what-is-kubernetes/
+: performes healthchecks
 
 ## Why are we using Kubernetes
+// https://kubernetes.io/docs/concepts/overview/what-is-kubernetes/
 
-## How are we using Kubernetes
+- High availability 
+- Scalability 
+- Disaster recovery
+- Automation
 
-## Networking with Kubernetes
+: High availability -> No downtime, always accessible for users
+: Scalability -> High performance, loads fast, users have high response recreate
+: Disaster recovery -> Infrastructure has a problem, Start a new node and apply configuration
+: Automation -> Using a build server to create images that can be run by Kubernetes
+
+## Terminology
+
+## Nodes
+
+- Master (main) and worker / minion nodes
+  - main nodes are the entrypoints into the cluster
+  - worker nodes run the actual workloads
+- A machine where containers (workloads) are deployed
+- Runs an instance of kubelet
+  - Reports the state of each node to the main nodes
+  - Takes care of starting, stopping
+  - Monitors the state of a pods
+- Runs an instance of Kube-proxy
+  - Network proxy
+  - Load balancer
+
+: main nodes run the API and manage the cluster (i.e. cattle, ...); Don't need much resources; REQUIRED for accessing the API, no access without!
+: controller manager -> overview over the cluster (repair stuff, restart containers if needed)
+: scheduler schedules workloads depending on load and resource availability
+: there should be an odd number of main nodes for decision making
+: runs etcd (strongly consistent, distributed key-value store) which contains the configuration. Can be snapshoted to recover the whole cluster state.
+: workers execute the actual workload so they need to run a container runtime (docker, containerd ...)
+
+## Namespace
+
+- Used for isolating groups of resources within a single cluster
+- Deployments, Services, ... are organized into namespaces
+- Intended for use in environments with many users spread across multiple teams or projects
+
+: Names must be unique
+: can't be nested
+: divide resources between users (resource quota)
+
+Example:
+
+.code examples/namespace.yaml
+
+## Pods
+
+- Basic scheduling unit in Kubernetes
+- Manages the containers running inside
+- Restart / recreate on failure
+- Shared between worker nodes
+
+: smallest unit that users can configure and interact with
+: wrapper for a container
+: usually 1 pod per application, multiple containers per pod only when a pod needs a "helper" (linkerd)
+: each pod hat it's own IP address (self contained server)
+: new IP on recreate
+
+## Services
+
+- Substitute for IP addresses
+- "Network interface" for a pod
+- Permanent IP Address for pods
+- Load balancer between multiple instances of a pod
+
+.code examples/service.yaml
+
+## Volumes
+
+- Mounted files inside a container
+- Can be folders or files
+- Mounted to a specific location inside a container
+
+## ConfigMaps and secrets
+
+- Contains configuration for a service
+- ConfigMaps: Basically files
+- Secrets: Same as ConfigMaps, but encrypted 
+  - not during runtime
+- Mounted to a specific location inside a container
+
+## Deployment
+
+// ## A containerized mindset
+
+// .image img/PIXNIO-2268049-1200x800.jpeg _ 200
+// .caption [[https://pixnio.com/media/adorable-hound-hunting-dog-pet-dog][Photo]] by [[https://pixnio.com/author/bicanski][Bicanski]] [[https://pixnio.com/][Pixnio]]
+
+// .image img/PIXNIO-29605-725x529.jpeg _ 200
+// .caption Photo by [[https://pixnio.com/fauna-animals/cows-and-calves/cattle][Keith Weller, U.S. Department of Agriculture]] [[https://pixnio.com/][Pixnio]]
+
+## Software supply chain
+
+- develop a feature on the local machine
+- push code to git
+- build server builds image and pushes it to registry
+- kubernetes recognizes new image
+- download and provision new image in cluster
 
 ## Helpful tools for working with Kubernetes
+

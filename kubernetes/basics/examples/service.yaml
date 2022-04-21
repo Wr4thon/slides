@@ -1,0 +1,15 @@
+apiVersion: v1
+kind: Service
+metadata:
+  namespace: wr4thon-slides
+  name: slides
+
+spec:
+  ports:
+    - protocol: TCP
+      name: http
+      port: 80
+      targetPort: 80
+  selector:
+    app: slides
+    component: ui
