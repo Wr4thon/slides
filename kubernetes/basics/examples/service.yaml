@@ -3,7 +3,6 @@ kind: Service
 metadata:
   namespace: wr4thon-slides
   name: slides
-
 spec:
   ports:
     - protocol: TCP

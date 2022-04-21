@@ -11,16 +11,13 @@ https://slides.wr4thon.de
 
 ## Agenda
 
-// - Kubernetes quickfacts
-// - Terminology
-// - A containerized mindset
-// - Software supply chain
-// - How are we using Kubernetes
-// - Networking with Kubernetes
-// - Helpful tools for working with Kubernetes
-
-- Security (daily business) 
-// https://kubernetes.io/docs/concepts/security/
+- Kubernetes quickfacts
+- Why are we using Kubernetes
+- What problems does Kubernetes solve?
+- Terminology
+- Software supply chain
+// - Security
+- Helpful tools for working with Kubernetes
 
 ## Kubernetes quickfacts
 
@@ -65,16 +62,16 @@ https://slides.wr4thon.de
 ## Nodes
 
 - Master (main) and worker / minion nodes
-  - main nodes are the entrypoints into the cluster
-  - worker nodes run the actual workloads
+	- main nodes are the entrypoints into the cluster
+	- worker nodes run the actual workloads
 - A machine where containers (workloads) are deployed
 - Runs an instance of kubelet
-  - Reports the state of each node to the main nodes
-  - Takes care of starting, stopping
-  - Monitors the state of a pods
+	- Reports the state of each node to the main nodes
+	- Takes care of starting, stopping
+	- Monitors the state of a pods
 - Runs an instance of Kube-proxy
-  - Network proxy
-  - Load balancer
+	- Network proxy
+	- Load balancer
 
 : main nodes run the API and manage the cluster (i.e. cattle, ...); Don't need much resources; REQUIRED for accessing the API, no access without!
 : controller manager -> overview over the cluster (repair stuff, restart containers if needed)
@@ -111,8 +108,6 @@ Example:
 : each pod hat it's own IP address (self contained server)
 : new IP on recreate
 
-
-
 ## Volumes
 
 - Mounted files inside a container
@@ -124,7 +119,7 @@ Example:
 - Contains configuration for a service
 - ConfigMaps: Basically files
 - Secrets: Same as ConfigMaps, but encrypted 
-  - Encrypion is not out of the box
+	- Encrypion is not out of the box
 - Mounted to a specific location inside a container or as an environment variable
 
 : For things like host names of other services, API keys, thresholds, ...
@@ -156,3 +151,42 @@ Example:
 - build server builds image and pushes it to registry
 - kubernetes recognizes new image
 - download and provision new image in cluster
+
+// ## Security
+// https://kubernetes.io/docs/concepts/security/
+
+## Helpful tools for working with Kubernetes
+
+## kubefwd
+
+- Kubernetes port forwarding for local development.
+
+example:
+
+	sudo kubefwd svc -n {namespace}
+
+.link https://github.com/txn2/kubefwd github
+
+## kubetail
+
+- get logs of a container or pod as they come in
+
+example:
+
+	kubetail -n {namespace} -c {name-of-deployment}
+
+
+.link https://github.com/johanhaleby/kubetail github
+
+## goseal
+
+example:
+
+	goseal file -f {path/to/unencrypted-secret.yaml} \
+	-n {namespace} \
+	-s {secret-name} \
+	-k {key-in-secret} \
+	-c {http://path/to/certificate} > {encrypted-secret}
+
+
+.link https://github.com/MaxBreida/goseal github
