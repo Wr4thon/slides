@@ -2,23 +2,24 @@
 
 FROM golang:alpine AS present
 
-ARG PROJECT_PATH=/go/src/github.com/wr4thon/slides
+ARG PROJECT_PATH=/slides
 ENV PROJECT_PATH=$PROJECT_PATH
+
+RUN apk --no-cache --update add tzdata build-base git ca-certificates
+
+RUN go install golang.org/x/tools/cmd/present@latest
 
 RUN mkdir -p ${PROJECT_PATH}
 
 WORKDIR ${PROJECT_PATH}
 
-RUN apk --no-cache --update add tzdata build-base git ca-certificates
-
 ENV TZ Europe/Berlin
 
-FROM present 
-
-EXPOSE 3999/tcp
-COPY . .
-
-RUN go get -u golang.org/x/tools/cmd/present  
-RUN go install golang.org/x/tools/cmd/present@latest
+EXPOSE 80/tcp
 
 ENTRYPOINT [ "present", "--http=0.0.0.0:80", "-play", "-use_playground", "-notes", "${PROJECT_PATH}" ]
+
+
+FROM present
+
+COPY . .

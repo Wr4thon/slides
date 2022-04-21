@@ -1,5 +1,7 @@
-Kubernetes basics
-2022-04-21
+# Kubernetes basics
+15:00 21 Apr 2022
+Tags: kubernetes, basics
+Summary: A quick overview for kubernetes
 
 Johannes Kolata
 Backend developer, ClariLab GmbH & Co. KG
@@ -7,9 +9,12 @@ me@wr4thon.de
 https://slides.wr4thon.de
 @wr4thon
 
-* Agenda
+## Agenda
+___
 
-- What is Kubernetes
+- Kubernetes Quickfacts
+  - A containerized mindset
+  - Software supply chain
 - Concepts
 - Why are we using Kubernetes
 - How are we using Kubernetes
@@ -17,27 +22,37 @@ https://slides.wr4thon.de
 - Helpful tools for working with Kubernetes
 
 - Security (daily business) 
-# https://kubernetes.io/docs/concepts/security/
+// https://kubernetes.io/docs/concepts/security/
 - Demo?
 - K3S
 
-* What is Kubernetes
+## Kubernetes Quickfacts
+___
 
 - open-source platform for administrating, automating and scaling container applications
 - developed by Google in go
 - initial release 2014
-- 
+ 
 
-# The original codename for Kubernetes within Google was Project 7, a reference to the Star Trek ex-Borg character Seven of Nine. The seven spokes on the wheel of the Kubernetes logo are a reference to that codename.
+: original codename for Kubernetes within Google was Project 7
+: reference to the Star Trek ex-Borg character Seven of Nine
+: The seven spokes on the wheel of the Kubernetes logo are a reference to that codename.
 
-* Concepts
+### What is it used for {#anchor}
 
-# https://kubernetes.io/docs/concepts/overview/what-is-kubernetes/
 
-* Why are we using Kubernetes
+### A containerized mindset {#anchor}
 
-* How are we using Kubernetes
+## Concepts
 
-* Networking with Kubernetes
+___
 
-* Helpful tools for working with Kubernetes
+// https://kubernetes.io/docs/concepts/overview/what-is-kubernetes/
+
+## Why are we using Kubernetes
+
+## How are we using Kubernetes
+
+## Networking with Kubernetes
+
+## Helpful tools for working with Kubernetes
