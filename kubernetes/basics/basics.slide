@@ -2,28 +2,42 @@ Kubernetes basics
 2022-04-21
 
 Johannes Kolata
-@wr4thon
+Backend developer, ClariLab GmbH & Co. KG
 me@wr4thon.de
+https://slides.wr4thon.de
+@wr4thon
 
 * Agenda
 
-- 
 - What is Kubernetes
-- Kubernetes history
+- Concepts
 - Why are we using Kubernetes
 - How are we using Kubernetes
-- Tools
+- Networking with Kubernetes
+- Helpful tools for working with Kubernetes
+
+- Security (daily business) 
+# https://kubernetes.io/docs/concepts/security/
+- Demo?
+- K3S
 
 * What is Kubernetes
 
-- open-source container orchestration platform
-- developed by Google
+- open-source platform for administrating, automating and scaling container applications
+- developed by Google in go
+- initial release 2014
 - 
 
-* Kubernetes history
+# The original codename for Kubernetes within Google was Project 7, a reference to the Star Trek ex-Borg character Seven of Nine. The seven spokes on the wheel of the Kubernetes logo are a reference to that codename.
+
+* Concepts
+
+# https://kubernetes.io/docs/concepts/overview/what-is-kubernetes/
 
 * Why are we using Kubernetes
 
 * How are we using Kubernetes
 
-* Tools
+* Networking with Kubernetes
+
+* Helpful tools for working with Kubernetes
