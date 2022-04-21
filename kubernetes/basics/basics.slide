@@ -11,13 +11,13 @@ https://slides.wr4thon.de
 
 ## Agenda
 
-- Kubernetes quickfacts
-- Terminology
-- A containerized mindset
-- Software supply chain
-- How are we using Kubernetes
-- Networking with Kubernetes
-- Helpful tools for working with Kubernetes
+// - Kubernetes quickfacts
+// - Terminology
+// - A containerized mindset
+// - Software supply chain
+// - How are we using Kubernetes
+// - Networking with Kubernetes
+// - Helpful tools for working with Kubernetes
 
 - Security (daily business) 
 // https://kubernetes.io/docs/concepts/security/
@@ -41,11 +41,23 @@ https://slides.wr4thon.de
 - High availability 
 - Scalability 
 - Disaster recovery
-- Automation
 
 : High availability -> No downtime, always accessible for users
 : Scalability -> High performance, loads fast, users have high response recreate
 : Disaster recovery -> Infrastructure has a problem, Start a new node and apply configuration
+
+## What problems does Kubernetes solve?
+
+- Easy deployment
+- Scaling resources to needs
+- Automating deployments of services
+- Configuration management
+- Testing different versions of applications or features
+
+: Traditionally you had binaries run on bare metal
+: Later you ran them in VMs
+: Splitting applications into microservices became popular
+: Deploying of microservices by hand became tedious
 : Automation -> Using a build server to create images that can be run by Kubernetes
 
 ## Terminology
@@ -70,6 +82,7 @@ https://slides.wr4thon.de
 : there should be an odd number of main nodes for decision making
 : runs etcd (strongly consistent, distributed key-value store) which contains the configuration. Can be snapshoted to recover the whole cluster state.
 : workers execute the actual workload so they need to run a container runtime (docker, containerd ...)
+: main and worker nodes talk to each other using a virtual network. Turns the whole cluster into a single powerful machine that have the sum of all nodes.
 
 ## Namespace
 
@@ -98,14 +111,7 @@ Example:
 : each pod hat it's own IP address (self contained server)
 : new IP on recreate
 
-## Services
 
-- Substitute for IP addresses
-- "Network interface" for a pod
-- Permanent IP Address for pods
-- Load balancer between multiple instances of a pod
-
-.code examples/service.yaml
 
 ## Volumes
 
@@ -118,26 +124,35 @@ Example:
 - Contains configuration for a service
 - ConfigMaps: Basically files
 - Secrets: Same as ConfigMaps, but encrypted 
-  - not during runtime
-- Mounted to a specific location inside a container
+  - Encrypion is not out of the box
+- Mounted to a specific location inside a container or as an environment variable
 
-## Deployment
+: For things like host names of other services, API keys, thresholds, ...
+: So you don't have to rebuild an image when an IP changes
+: for encrypting secrets you have to use third-party software
 
-// ## A containerized mindset
+## Networking
 
-// .image img/PIXNIO-2268049-1200x800.jpeg _ 200
-// .caption [[https://pixnio.com/media/adorable-hound-hunting-dog-pet-dog][Photo]] by [[https://pixnio.com/author/bicanski][Bicanski]] [[https://pixnio.com/][Pixnio]]
+## Services
 
-// .image img/PIXNIO-29605-725x529.jpeg _ 200
-// .caption Photo by [[https://pixnio.com/fauna-animals/cows-and-calves/cattle][Keith Weller, U.S. Department of Agriculture]] [[https://pixnio.com/][Pixnio]]
+- Internal
+- Substitute for IP addresses
+- "Network interface" for a pod
+- Permanent IP Address for pods
+- Load balancer between multiple instances of a pod
+
+.code examples/service.yaml
+
+## Ingresses
+
+- External service
+
+.code examples/ingress.yaml
 
 ## Software supply chain
 
 - develop a feature on the local machine
-- push code to git
+- push code to a repository
 - build server builds image and pushes it to registry
 - kubernetes recognizes new image
 - download and provision new image in cluster
-
-## Helpful tools for working with Kubernetes
-

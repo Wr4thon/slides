@@ -1,0 +1,21 @@
+apiVersion: extensions/v1beta1
+kind: Ingress
+metadata:
+  name: slides
+  namespace: wr4thon-slides
+  annotations:
+    kubernetes.io/ingress.class: traefik
+    traefik.ingress.kubernetes.io/redirect-entry-point: https
+spec:
+  tls:
+    - secretName: slides
+      hosts:
+        - slides.wr4thon.de
+  rules:
+    - host: slides.wr4thon.de
+      http: 
+        paths:
+          - path: /
+            backend:
+              serviceName: slides
+              servicePort: 80
