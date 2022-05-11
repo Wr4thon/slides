@@ -1,0 +1,173 @@
+# What Is Event Sourcing?
+15:00 12 May 2022
+Tags: event-sourcing, introduction
+Summary: A introductory talk to event sourcing
+
+Johannes Kolata
+Backend engineer, ClariLab GmbH & Co. KG
+me@wr4thon.de
+https://slides.wr4thon.de
+@wr4thon
+
+## Agenda
+
+- Abstract
+- Example
+- Basic concepts
+- Advanced concepts
+- Advantages
+- Disadvantages
+- What can we do with that?
+
+: Give you quick overview about the topic 
+: explain it based on an ... and 
+: going over the basics and advanced concepts
+: after that we are going to have a look at ...
+: at the end I'm going to show you ...
+: <br/>
+: So, let's start with an abstract overview.
+: What is event sourcing?
+
+## Abstract
+
+- A way of storing and processing information, enabling:
+  - loosely couple services 
+	- notify other services
+  - reversal of dependencies
+  - Audit log
+  - Time travel 😎
+
+
+: services don't know their dependencies
+: something happened -> do I need to act?
+: services don't need to know each other
+: process reviewers can comprehend what happened
+: retrieve the state at any time in the past
+: <br/>
+: but how can we imagine that? -->
+
+## Example
+
+- Bank account
+	- Account owner
+	- Transactions
+	- Receive money
+	- Transfer money
+
+: all of the above can be divided into two categories: -->
+
+##
+
+- Things that should be done, e.g.:
+	- Transfer money
+	- Change address
+<br>
+<br>
+<br>
+- Things that happened in the past, e.g.:
+	- Account opened
+	- $$ were deposited
+
+: all those things have names which I'm going to explain now -->
+
+## Basic concepts
+
+: fist of all: The first thing I need to explaint is Events -->
+
+## Events
+
+- happened in the past
+- immutable fact
+- no intention
+- notifies the system about a change
+
+: facts
+: Naming in absolutes; past simple
+: accountCreated, moneyReceived
+: <br/>
+: ... usually are contained in an -->
+
+## EventStream
+
+- Append only
+- List of events
+- Ensures correct order of events
+
+: audit log (fraudulent transactions)
+: most developers should be rather familiar with this concept: Source control
+: <br/>
+: But how even are events created? -->  
+
+## Commands
+
+- requests an action
+
+: carries an intent
+: Naming in imperative
+:
+: sum up: request -> acting on it -> store the result
+: So now Who decides if a command can be executed? -->
+
+## Aggregate
+
+- gets commands as input
+- decides to act on it based on rules
+- creates events
+- updates internal data
+- appends to the EventStream
+
+: Until now we created commands, decided if they can be executed, executed them and thus created events, stored these events, what now?
+
+## Advanced concepts
+
+## Reactor
+
+- Listens to specific events
+- Might trigger further actions
+- No internal model
+
+: Look for special keywords in the transaction title and trigger an audit of that transaction
+: IFTTT
+
+## Projector
+
+- Much the same as a reactor
+- Updates an internal model
+- A view on data
+
+: different view on the same data
+: customer sees something different then the banker
+
+## Correction
+
+- No editing of past events
+- Correction Events
+
+## Advantages
+
+- Access all information ever stored
+- high availability
+- can implement features based on old data
+- Easy to find problems
+- testing is much easier
+
+: But It's not all sunshine and roses
+: Event sourcing also comes with some disadvantages --->
+
+## Disadvantages
+
+- eventual consistency
+- hard to understand
+- hard to debug
+
+: With that out of the way, what can we get out of it?
+
+## What can we do with that?
+
+- Decouple systems from each other
+- Invert dependencies
+- Automatically create an audit log
+- Trigger actions in services we don't actually know exist
+- Be more versatile with our data
+
+## Questions
